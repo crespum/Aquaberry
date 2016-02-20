@@ -1,0 +1,61 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          testone
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     false
+### END INIT INFO
+
+DESC="RPi"
+NAME=rpistatus
+PIDFILE=/var/run/rpistatus
+#DAEMON=
+
+do_start()
+{
+  # If service is already running, dont run it again.
+   if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
+      echo "Service already running" >&2
+      return 1
+   fi
+   echo "Starting service RPi status"; >&2
+   #run program
+   /home/pi/python/application.py
+   echo $! > $PIDFILE
+}
+
+do_stop()
+{
+   # If service is not running, dont run it again.
+   if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
+     echo 'Service not running' >&2
+     return 1
+   fi
+   echo "Stopping service RPi status" >&2
+   # Kill program
+   kill -9 $(cat $PIDFILE)
+   rm $PIDFILE
+}
+
+
+case "$1" in
+   start)
+     do_start
+     ;;
+   stop)
+     do_stop
+     ;;
+   status)
+     echo "Nothing to say!"
+     ;;
+   restart)
+     do_stop
+     do_start
+     ;;
+   *)
+     echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
