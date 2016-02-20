@@ -17,8 +17,7 @@ void setup() {
   pinMode(RPI, OUTPUT);
   pinMode(GREEN2, OUTPUT);
 
-  t.after(5000, doAfter);
-
+  t.after(10000, doAfter);
   state = STATE_WORKING;
 }
 
