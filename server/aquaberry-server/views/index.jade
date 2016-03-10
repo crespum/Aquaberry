@@ -6,13 +6,24 @@ block content
     .col-md-2.col-md-offset-4.center
       p Aquaberry #1<br/>
         span.custom-stack.fa-lg
-          span.fa.fa-circle.stack.stack-external.green
-          span.fa.fa-lightbulb-o.stack.stack-internal
+          if rpi1
+            span.fa.fa-circle.stack.stack-external.green
+            span.fa.fa-lightbulb-o.stack.stack-internal
+          else    
+            span.fa.fa-circle.stack.stack-external.red
+            span.fa.fa-lightbulb-o.stack.stack-internal
     .col-md-2.center
       p Aquaberry #2<br/>
         span.custom-stack.fa-lg
-          span.fa.fa-circle.stack.stack-external.red
-          span.fa.fa-lightbulb-o.stack.stack-internal
+          if rpi2
+            span.fa.fa-circle.stack.stack-external.green
+            span.fa.fa-lightbulb-o.stack.stack-internal
+          else    
+            span.fa.fa-circle.stack.stack-external.red
+            span.fa.fa-lightbulb-o.stack.stack-internal
   p.center
-    span.fa.fa-cog.fa-4x.fa-spin#cog
+    if !rpi1 && !rpi2
+      span.fa.fa-cog.fa-4x#cog
+    else
+      span.fa.fa-cog.fa-4x.fa-spin#cog
 
